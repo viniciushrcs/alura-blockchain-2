@@ -1,73 +1,115 @@
-# Rollups, Plasma, Channels e Sidechains: Soluções de Escalabilidade no Ethereum  
+# Rollups, Channels e Sidechains: Soluções de Escalabilidade no Ethereum
 
-## Introdução  
-A escalabilidade é um dos maiores desafios do Ethereum. Durante períodos de alta demanda, a rede enfrenta congestionamentos e taxas elevadas. Soluções de camada 2, como **Rollups**, **Plasma**, **Channels** e **Sidechains**, foram criadas para resolver esses problemas.  
+## Introdução
 
----
+O Ethereum revolucionou o universo das blockchains ao introduzir contratos inteligentes e dApps. No entanto, sua adoção em massa expôs limitações técnicas, como altos custos de transação (gas fees) e congestionamento da rede. Para superar esses desafios, surgiram soluções de escalabilidade **Layer 2**, como **Rollups**, **State Channels** e **Sidechains**.
 
-## Rollups  
-
-### Como Funcionam  
-- Agrupam várias transações fora da blockchain principal.  
-- Registram apenas dados essenciais e provas de validação na camada 1.  
-
-### Tipos  
-1. **Optimistic Rollups:**  
-   - Assumem que as transações são válidas, a menos que haja uma contestação.  
-2. **ZK-Rollups:**  
-   - Utilizam provas criptográficas para validação eficiente e segura.  
-
-### Benefícios e Limitações  
-- **Vantagens:**  
-  - Alta capacidade de transações (milhares por segundo).  
-  - Custos de gas reduzidos.  
-- **Desvantagens:**  
-  - Optimistic Rollups têm atrasos em períodos de contestação.  
-  - ZK-Rollups possuem maior complexidade de implementação.  
+Essas tecnologias têm como objetivo aumentar a capacidade de processamento da rede sem comprometer sua segurança ou descentralização. Vamos explorar essas soluções, destacando suas características, benefícios e desafios.
 
 ---
 
-## Plasma  
+## Principais Soluções de Escalabilidade
 
-### Como Funciona  
-- Utiliza child chains para processar transações off-chain.  
-- Child chains enviam "commitments" periódicos à blockchain principal.  
+### 1. **State Channels**
 
-### Benefícios e Limitações  
-- **Vantagens:**  
-  - Alta escalabilidade com custos reduzidos.  
-- **Desvantagens:**  
-  - Longos tempos de saída para os fundos.  
-  - Limitado a casos de uso específicos.  
+Os **State Channels** permitem que participantes transacionem fora da blockchain principal, com apenas duas interações on-chain: abertura e fechamento do canal.
 
----
+#### Funcionamento:
+- **Abertura do Canal**: Um contrato inteligente on-chain é criado para depositar fundos, esse contrato sendo multiassinatura.
+- **Transações Off-Chain**: Transações são assinadas e trocadas diretamente entre os usuários, sem a necessidade de publicar na blockchain.
+- **Fechamento do Canal**:  O estado final é enviado on-chain para distribuir os fundos conforme o saldo acordado.
 
-## Channels  
+#### Benefícios:
+- **Alta Taxa de Transações**: Não limitadas pela capacidade da camada principal.  
+- **Custos Baixos**: Apenas abertura e fechamento geram custos on-chain.  
+- **Privacidade**: Transações são feitas off-chain, garantindo sigilo.
 
-### Como Funcionam  
-- Permitem que duas partes troquem transações off-chain.  
-- Apenas o início e o encerramento do canal são registrados na blockchain.  
+#### Limitações:
+- **Conjunto Fixo de Participantes**: Deve ser definido na abertura do canal.  
+- **Escopo Limitado:**: Melhor aplicável a casos específicos, como pagamentos recorrentes ou jogos simples.
 
-### Benefícios e Limitações  
-- **Vantagens:**  
-  - Transações instantâneas e baratas.  
-- **Desvantagens:**  
-  - Útil apenas para casos específicos, como pagamentos repetidos.  
+#### Exemplo:
+- [Raiden Network](https://raiden.network/)
 
 ---
 
-## Sidechains  
+### 2. **Rollups**
 
-### Como Funcionam  
-- Operam como blockchains independentes, conectadas à blockchain principal por pontes.  
+Os Rollups movem a execução de transações para fora da camada principal, mas publicam dados essenciais no Ethereum, de modo compactado. Existem dois tipos principais:  
 
-### Benefícios e Limitações  
-- **Vantagens:**  
-  - Alta flexibilidade e capacidade de processamento.  
-- **Desvantagens:**  
-  - Segurança dependente do mecanismo de consenso da sidechain.  
+- **Rollups Optimistas**: Assumem que todas as transações são válidas, a menos que sejam contestadas.  
+- **ZK-Rollups (Zero-Knowledge)**: Usam provas criptográficas para validar transações antes de publicá-las.  
+
+#### Benefícios:
+- **Alta Escalabilidade**: Podem processar milhares de transações por segundo.  
+- **Custos Reduzidos**: Compactação de dados diminui os custos de publicação on-chain.  
+- **Segurança**: Derivada da camada 1.  
+
+#### Limitações:
+- **Rollups Optimistas**: Retiradas podem levar até 7 dias devido ao período de contestação.  
+- **ZK-Rollups**: Complexidade técnica e altos custos iniciais para operadores.
+
+#### Exemplo:
+- [Optimis network](https://www.optimism.io/)
+- [ZK Sync](https://zksync.io/)
+
 
 ---
 
-## Conclusão  
-As soluções de camada 2 são essenciais para o futuro do Ethereum, oferecendo alternativas para melhorar a escalabilidade e reduzir custos. Rollups, Plasma, Channels e Sidechains atendem a diferentes necessidades e contribuem para um ecossistema mais eficiente.  
+### 3. **Sidechains**
+
+Uma **sidechain** é uma blockchain separada que opera de forma independente do Ethereum e está conectada à Ethereum Mainnet por meio de uma ponte bidirecional (*two-way bridge*). 
+
+#### Características das Sidechains
+
+- **Independência**: As sidechains possuem seus próprios parâmetros de blocos e algoritmos de consenso, frequentemente projetados para processar transações de forma eficiente.
+- **Flexibilidade**: Por serem independentes, podem experimentar novos modelos de consenso e parâmetros de rede sem impactar a Mainnet.
+- **Ponte Bidirecional**: Conecta a sidechain à Ethereum Mainnet, permitindo movimentação de ativos entre as duas redes.
+- 
+#### Limitações:
+- **Segurança Independente**: Não herdam a segurança da camada principal.  
+- **Centralização**: Podem depender de operadores centralizados para validação.
+
+---
+
+## Exemplo: Polygon PoS Chain  
+
+A **Polygon PoS Chain** é frequentemente considerada uma sidechain devido à sua independência. No entanto, ela implementa várias camadas de segurança que a diferenciam de uma sidechain tradicional, levando alguns a chamá-la de **commit chain**.  
+
+### Como Funciona a Polygon PoS Chain?  
+
+1. **Consenso e Validação:**  
+   - A Polygon PoS utiliza um modelo de consenso Proof-of-Stake.  
+   - Os validadores participam bloqueando tokens MATIC na Ethereum Mainnet. Isso significa que, embora a Polygon seja independente, sua segurança está parcialmente vinculada à Mainnet por meio do staking.  
+   - Validadores desonestos podem ser penalizados (slashing) se agirem de maneira maliciosa.  
+
+2. **Checkpointing:**  
+   - O **Heimdall**, um componente da arquitetura Polygon, cria "checkpoints" regulares na Ethereum Mainnet.  
+   - Esses checkpoints agregam transações realizadas na Polygon em um estado resumido, garantindo uma referência confiável e auditável na Mainnet.  
+
+3. **Ponte Bidirecional:**  
+   - A Polygon oferece duas pontes para mover ativos entre a Mainnet e sua rede
+
+4. **Block Producers:**  
+   - Um subconjunto dos validadores é periodicamente selecionado para produzir blocos, garantindo eficiência e descentralização.  
+
+---
+
+## Comparação Entre Soluções  
+
+| **Aspecto**         | **State Channels**      | **Rollups Optimistas** | **ZK-Rollups**         | **Sidechains**          |
+|----------------------|-------------------------|-------------------------|-------------------------|-------------------------|
+| **Execução**         | Off-chain              | Off-chain              | Off-chain              | Off-chain              |
+| **Finalidade**       | No fechamento do canal | Após publicação on-chain | Imediata após validação | Independente            |
+| **Segurança**        | Derivada da camada 1   | Derivada da camada 1   | Derivada da camada 1   | Independente            |
+| **Custos de Gas**    | Baixos                 | Moderados              | Baixos                 | Baixos                 |
+| **Tempo de Saída**   | Instantâneo            | Até 7 dias             | Instantâneo            | Instantâneo            |
+| **Escalabilidade**   | Alta                   | Alta                   | Muito Alta             | Alta                   |
+
+---
+
+## Conclusão
+
+As soluções de Layer 2 são indispensáveis para superar as limitações de escalabilidade do Ethereum. Cada solução possui casos de uso ideais e trade-offs. Na próxima aula, falaremos dos oracles.
+
+Para aprofundar no tema, visite a [documentação oficial do Ethereum](https://ethereum.org/pt/developers/docs/scaling/).  
