@@ -46,7 +46,12 @@ Durante esse processo, a EVM assegura que todos os nós cheguem ao mesmo resulta
 
 > **Nota:** O conhecimento dos opcodes é avançado, mas entender que cada linha de código Solidity é compilada em uma sequência de opcodes ajuda a otimizar e escrever contratos mais eficientes.
 
-## Conclusão  
-A EVM é uma das inovações mais importantes do Ethereum, servindo como o núcleo que transforma a blockchain em uma plataforma programável. Ela oferece o ambiente seguro e consistente necessário para a execução de contratos inteligentes.  
+Para um estudo mais aprofundado, você pode acessar o [Ethereum Opcodes Reference](https://www.evm.codes/).
 
-No próximo tópico, exploraremos como os algoritmos de consenso trabalham em conjunto com a EVM para garantir que a blockchain permaneça segura, confiável e descentralizada.  
+---
+
+## Conclusão  
+
+A EVM é o núcleo que transforma o Ethereum em uma plataforma programável, permitindo a execução de contratos inteligentes em um ambiente seguro e confiável. Compreender a interação da EVM com conceitos como opcodes pode ajudar a criar contratos mais eficientes e otimizados.
+
+No próximo módulo, mergulharemos em **criptografia prática**, explorando como algoritmos e técnicas criptográficas garantem a segurança e privacidade na blockchain.

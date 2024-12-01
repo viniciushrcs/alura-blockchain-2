@@ -68,6 +68,7 @@ Uma assinatura digital é um esquema matemático que garante que uma mensagem ou
 ---
 
 ## Conclusão  
+
 A criptografia é o pilar da segurança da blockchain, garantindo que dados e transações sejam protegidos e confiáveis. Funções de hash garantem a integridade dos dados, enquanto chaves públicas, privadas e assinaturas digitais fornecem autenticação e proteção.  
 
-No próximo vídeo, colocaremos esses conceitos em prática, utilizando o módulo `crypto` do NodeJS para explorar funções de hash e criar assinaturas digitais.  
+Na próxima aula, exploraremos os **protocolos de consenso**, entendendo como eles trabalham para garantir que a blockchain permaneça segura, confiável e descentralizada.

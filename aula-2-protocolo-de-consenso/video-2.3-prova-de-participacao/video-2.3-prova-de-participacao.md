@@ -50,4 +50,4 @@ O Ethereum migrou para o PoS com o objetivo de reduzir seu impacto ambiental e a
 
 A Prova de Participação é uma evolução sustentável e eficiente do consenso blockchain. Sua introdução em redes como o Ethereum marca um avanço significativo na tecnologia, tornando as blockchains mais acessíveis e ecológicas.  
 
-No próximo vídeo, veremos uma simulação prática dos mecanismos de consenso PoW e PoS para compreender suas diferenças.  
+Na próxima aula, falaremos da escalabilidade da blockchain.
