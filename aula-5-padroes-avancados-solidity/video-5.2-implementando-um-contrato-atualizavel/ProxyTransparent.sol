@@ -2,16 +2,45 @@
 pragma solidity ^0.8.0;
 
 /**
- * @title Transparent Proxy
- * @dev Este contrato atua como um intermediário que delega chamadas a um contrato de lógica
- *      utilizando a função delegatecall. Apenas o administrador pode atualizar o contrato de lógica.
+ * @title LogicContractV1
+ * @dev Primeira versão da lógica para armazenar e recuperar valores.
  */
+contract LogicContractV1 {
+    // Armazena um valor simples
+    uint256 private _value;
+
+    // Evento emitido quando o valor é atualizado
+    event ValueUpdated(address indexed updater, uint256 oldValue, uint256 newValue);
+
+    /**
+     * @dev Atualiza o valor armazenado.
+     * @param newValue Novo valor a ser armazenado.
+     */
+    function setValue(uint256 newValue) public {
+        uint256 oldValue = _value; // Armazena o valor antigo para o evento
+        _value = newValue;
+        emit ValueUpdated(msg.sender, oldValue, newValue); // Emite o evento com detalhes
+    }
+
+    /**
+     * @dev Retorna o valor armazenado.
+     * @return O valor atualmente armazenado.
+     */
+    function getValue() public view returns (uint256) {
+        return _value;
+    }
+}
+
 contract ProxyTransparent {
+    // Armazena um valor simples (compartilhado com a lógica)
+    uint256 private _value;
+
     // Endereço do contrato de implementação (lógica)
     address private _implementation;
 
     // Endereço do administrador responsável pelas atualizações
     address private _admin;
+
 
     /**
      * @dev Construtor para configurar o administrador e a implementação inicial.
@@ -47,23 +76,35 @@ contract ProxyTransparent {
     }
 
     /**
-     * @dev Delegates chamadas ao contrato de lógica usando delegatecall.
+     * @dev Retorna o valor armazenado.
+     * Essa função lê diretamente o estado armazenado no Proxy.
      */
-    fallback() external payable {
-        address impl = _implementation;
-        require(impl != address(0), "Proxy: Implementation is not set");
-
-        // Delegatecall para o contrato de lógica
-        (bool success, bytes memory data) = impl.delegatecall(msg.data);
-        require(success, "Proxy: Delegatecall failed");
-
-        assembly {
-            return(add(data, 0x20), mload(data))
-        }
+    function getValue() external view returns (uint256) {
+        return _value;
     }
 
-    /**
-     * @dev Permite receber ETH no fallback.
-     */
+    // Fallback redireciona chamadas para o contrato de lógica
+    fallback() external payable {
+        (bool success, ) = _implementation.delegatecall(msg.data);
+        require(success, "Delegatecall failed");
+    }
+
+    // Função para receber ETH
     receive() external payable {}
+}
+
+contract LogicContractV2 {
+    uint256 private _value;
+
+    function setValue(uint256 newValue) public {
+        _value = newValue * 2;
+    }
+
+    function getValue() public view returns (uint256) {
+        return _value;
+    }
+
+    function multiplyValue(uint256 multiplier) public {
+        _value *= multiplier;
+    }
 }
